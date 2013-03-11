@@ -1,0 +1,241 @@
+/* Remove padding and margin */
+*
+    {
+    margin: 0;
+    padding: 0;
+    font-family: Palatino, Georgia, "Times New Roman";
+}
+
+body{
+	background:#F8F7ED;
+}
+
+a {
+	-moz-transition: color 0.3s linear;
+	-o-transition: color 0.3s linear;
+	-webkit-transition: color 0.3s linear;
+	transition: color 0.3s linear;
+	text-decoration: none;
+}
+a:hover {
+	color: #000C4F;
+}
+
+input.text,
+input[type=text]
+textarea {
+	border: 1px solid #7C7C7C;
+	border-color: #7C7C7C #7C7C7C #C3C3C3 #C3C3C3;
+}
+
+p,
+ul,
+ol {
+	margin-bottom: 1em;
+	list-style-type: none;
+}
+
+/*-  MAIN
+----------------------------------------------------------------------*/
+/*
+	Outsets
+*/
+.logo,
+.nav-primary,
+.lede {
+	position: relative;
+	z-index: 100;
+}
+.logo:after,
+.nav-primary:after,
+.lede:after {
+	content: "";
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.logo:after {
+	content:'';
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:-10px;
+    right:-10px;
+    background:#28597a;
+    z-index:-1;
+    box-shadow:-10px 10px 0 0 #65a9d7;
+    -moz-box-shadow:-10px 10px 0 0 #65a9d7;
+    -webkit-box-shadow:-10px 10px 0 0 #65a9d7;
+}
+
+.skew {
+	transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+   -webkit-transform: skew(-10deg);
+}
+
+img {
+	max-width: 100%;
+}
+.ie6 img {
+	width: 100%;
+}
+#master {
+	margin: 36px auto;
+	width: 90%;
+}
+.logo {
+   /* margin:20px;*/
+	/*background: #F36E21; */
+	float: left;
+	padding-left: 1.0em;
+	padding-right: 1.0em;
+	color: #FFFFFF;
+	width: 16.875%;	/* 162 / 960 */
+}
+
+.logo a {
+	display: block;
+	padding: 8px 14.8148148% 18px;	/* 24 / 162 */
+}
+
+.logo img {
+	display: block;
+}
+
+.logo h1 {
+	margin-bottom: 0.0em;
+}
+
+.nav-primary {
+	background: #513127;
+	padding: 1.2em 1em 1em;
+	text-transform: uppercase;
+	top: 24px;
+	z-index: 99;
+	
+}
+
+.nav-primary:after,
+.lede:after {
+	background-color: #513127;
+	opacity: 0.2;
+	-moz-box-shadow: 10px -10px #513127;
+	-webkit-box-shadow: 10px -10px #513127;
+	box-shadow: 10px -10px #513127;
+}
+
+.nav-primary li {
+	display: inline;
+}
+
+.nav-primary a {
+	color: #EECBA5;
+	padding: 1.2em 1em 1em;
+	position: relative;
+	z-index: 1;
+}
+
+.nav-primary a:hover {
+	color: #F8F5F2;
+}
+
+.gray-header {
+	font-size: 2.5em;
+	border: 2px solid black;
+	background-color: #878787;
+	text-align: center;
+	padding: 0.3em;
+}
+
+.light-blue-button {
+   border-top: 1px solid #96d1f8;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   padding: 16.5px 33px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 19px;
+   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+}
+
+.light-blue-button:hover {
+   border-top-color: #28597a;
+   background: #28597a;
+   color: #ccc;
+}
+
+.light-blue-button:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+}
+
+.inner-content {
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.no_style_link {
+	color:#FFFFFF;
+}
+
+.no_style_link:hover {
+	color:#FFFFFF;
+}
+
+#footer {
+	text-align: center;
+	height: 100px;
+}
+
+
+
+
+/* Set up classes for floating and clearing */
+.clear
+    {
+    clear:both;
+}
+
+.right
+    {
+    float: right;
+}
+
+.left
+    {
+    float: left;
+}
+
+.inline {
+	display: inline;
+}
+
+/*-  MEDIA QUERIES
+----------------------------------------------------------------------*/
+/* Disable iOS/WinMobile font size changes */
+@media screen and (max-width: 600px),
+screen and (max-device-width: 480px) {
+	html {
+		-ms-text-size-adjust: none;
+		-webkit-text-size-adjust: none;
+	}
+}
+

@@ -1,0 +1,113 @@
+/* mobile */
+/* mixins */
+/* dimensions */
+/* colours */
+/* fonts */
+/* layout */
+body > header nav {
+  clear: none;
+  margin: .3em 0 0 1.2em;
+  padding: 0;
+  float: left;
+  display: block;
+  overflow: hidden; }
+  body > header nav ul {
+    display: block;
+    width: 100%; }
+  body > header nav li {
+    float: left;
+    display: block;
+    margin: 0 1em 0 0;
+    padding: 0 1em 0 0;
+    font-size: 1em;
+    font-weight: 300;
+    font-family: "Museo", "Trebuchet MS", Trebuchet, Tahoma, Arial, sans-serif;
+    border-right: 1px #666 solid; }
+    body > header nav li:hover a {
+      color: #658e15; }
+    body > header nav li a {
+      width: 100%;
+      display: block; }
+  body > header nav li.current {
+    font-weight: 300; }
+    body > header nav li.current a {
+      color: #658e15; }
+  body > header nav li:last-child {
+    border: none; }
+body > article {
+  clear: both;
+  display: block;
+  margin: 0px auto;
+  padding: 0px 2%;
+  min-width: 220px;
+  max-width: 960px;
+  overflow: hidden; }
+
+/* content elements */
+article.highlight {
+  margin: 5px 0 5px 0;
+  width: 100%;
+
+  }
+  article.highlight:last-child {
+    margin-right: 0; }
+    
+  article.highlight a {
+  	  padding: 0.5em .2em 0.5em .3em;
+  	  display: block;
+  }
+  article.highlight img {
+    padding: 0; }
+  article.highlight h3 {
+    font-size: 1.2em;
+    padding: .3em 0.5em .3em;
+    margin-bottom: 0; }
+  article.highlight p {
+    padding: 0 .2em 0 .3em; }
+
+ul.highlight li h3 {
+  clear: none;
+  padding-top: 0; }
+ul.highlight li img {
+  margin-right: .5em; }
+
+/* design */
+body > header h1 {
+  font-size: 1.2em; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Museo", "Trebuchet MS", Trebuchet, Tahoma, Arial, sans-serif;
+  font-weight: 500; }
+
+ul li {
+  margin: 0 .5em 0 2em; }
+
+/* components */
+#breadcrumbs p {
+  font-family: Georgia, "Times New Roman", Times, serif; }
+
+#pagination li {
+  font-size: 1.2em;
+  padding: 0 .4em;
+  margin: 0 .2em; }
+#pagination li.previous {
+  float: left; }
+
+#biography img {
+  background-color: #fff;
+  padding: .4em;
+  margin: 0 .4em 0 0; }
+
+.note {
+  font-family: Helvetica, Arial, sans-serif; }
+
+div#slideshow ul li a {
+  width: 100%;
+  display: block; }
+div#slideshow ul li a:hover {
+  cursor: hand;
+  background-color: white; }
+div#slideshow ul li.previous {
+  font-size: 1.2em; }
+div#slideshow ul li.next {
+  font-size: 1.2em; }

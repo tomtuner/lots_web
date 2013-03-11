@@ -1,0 +1,268 @@
+/* desktop */
+/* mixins */
+/* dimensions */
+/* colours */
+/* fonts */
+/* Museo */
+@font-face {
+  font-family: 'Museo';
+  src: url("../fonts/museo/museo700-regular.eot");
+  src: local("☺"), url("../fonts/museo/museo700-regular.woff") format("woff"), url("../fonts/museo/museo700-regular.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Museo';
+  src: url("../fonts/museo/museo500-regular.eot");
+  src: local("☺"), url("../fonts/museo/museo500-regular.woff") format("woff"), url("../fonts/museo/museo500-regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Museo';
+  src: url("../fonts/museo/museo300-regular.eot");
+  src: local("☺"), url("../fonts/museo/museo300-regular.woff") format("woff"), url("../fonts/museo/museo300-regular.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal; }
+
+/* layout */
+body {
+  background-image: url("/resources/images/work-in-progress.png");
+  background-position: top right;
+  background-repeat: no-repeat; }
+  body > header {
+    height: 2.7em;
+    margin: 0 auto 1em auto; }
+    body > header h1 {
+      float: left; }
+    body > header nav {
+      clear: none;
+      margin: .3em 0 0 1.2em;
+      padding: 0;
+      float: left;
+      display: block;
+      overflow: hidden; }
+      body > header nav ul {
+        display: block;
+        width: 100%; }
+      body > header nav li {
+        float: left;
+        display: block;
+        margin: 0 1em 0 0;
+        padding: 0 1em 0 0;
+        font-size: 1em;
+        font-weight: 300;
+        font-family: "Museo", "Trebuchet MS", Trebuchet, Tahoma, Arial, sans-serif;
+        border-right: 1px #666 solid; }
+        body > header nav li:hover a {
+          color: #658e15; }
+        body > header nav li a {
+          width: 100%;
+          display: block; }
+      body > header nav li.current {
+        font-weight: 300; }
+        body > header nav li.current a {
+          color: #658e15; }
+      body > header nav li:last-child {
+        border: none; }
+    body > header form#search {
+      clear: right;
+      float: right;
+      margin: 0 0 0 4%;
+      width: 31%;
+      margin-left: 1em; }
+  body > article > * {
+    width: 65%; }
+  body article aside {
+    clear: right;
+    float: right;
+    margin: 0 0 0 4%;
+    width: 31%; }
+  body > footer section {
+    float: left;
+    width: 28%; }
+    body > footer section#about {
+      margin-right: 5%; }
+    body > footer section#contact {
+      clear: right;
+      float: right;
+      margin: 0 0 0 4%;
+      width: 31%; }
+      body > footer section#contact span.email, body > footer section#contact span.tel, body > footer section#contact span.adr {
+        display: block; }
+
+article.detail header {
+  width: 100%;
+  height: 12.5em;
+  border: none; }
+  article.detail header h2 {
+    margin: 3.35em 0 0 0;
+    display: inline-block;
+    background-color: #97c02f;
+    padding: 0.25em .5em;
+    color: #fff;
+    font-weight: 500; }
+
+/* content elements */
+article.feature {
+  margin-bottom: 1.5em; }
+  article.feature h2 {
+    margin: .7em 0 .2em 0;
+    text-align: center; }
+  article.feature p {
+    margin: 0 2em 1em 2em;
+    text-align: center;
+    font-size: 1.1em;
+    color: #575756; }
+  article.feature img {
+    background: #f5f5f5; }
+
+article.highlight {
+  width: 32%;
+  display: block;
+  float: left;
+  margin: 0 2% 0 0; }
+  article.highlight:last-child {
+    margin-right: 0; }
+  article.highlight img {
+    padding: 4px;
+    background-color: white; }
+  article.highlight h3 {
+    font-size: 1.2em;
+    padding: .3em .2em .5em .3em;
+    margin: 0; }
+  article.highlight p {
+    padding: 0 .2em 0 .3em;
+    margin: 0 0 0.2em 0; }
+  article.highlight ul li {
+    font-size: .9em; }
+
+article.alert {
+  background: #ebebe2 url("/resources/icons/arrow.png") 0.4em 0.3em no-repeat; }
+  article.alert p {
+    padding-left: 2.2em; }
+
+ul.highlight li h3 {
+  clear: none;
+  padding-top: 0; }
+
+/* components */
+#breadcrumbs {
+  margin: 0 0 1em 0; }
+  #breadcrumbs p {
+    font-family: "Museo", "Trebuchet MS", Trebuchet, Tahoma, Arial, sans-serif; }
+
+#pagination ul {
+  width: 60%; }
+
+#pagination li.previous {
+  float: left; }
+
+#biography img {
+  background-color: #fff;
+  padding: .4em;
+  margin: 0 .4em .6em 0; }
+
+/*not in use
+section#featured {
+	clear: both;
+	float: left;
+	margin: 0;
+	width: $column-main - $column-margin;
+	margin-right: $column-margin;
+}
+
+section#etcetera {
+	width: $column-misc;
+	margin: 0 0 0 $column-main + $column-margin;
+	vertical-align: top;
+}
+*/
+/* design */
+body > header h1 {
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 2px 3px #999;
+  -moz-box-shadow: 0px 2px 3px #999;
+  -webkit-box-shadow: 0px 2px 3px #999; }
+body > header input[type="submit"] {
+  font-family: "Museo", "Trebuchet MS", Trebuchet, Tahoma, Arial, sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Museo", "Trebuchet MS", Trebuchet, Tahoma, Arial, sans-serif;
+  font-weight: 500; }
+
+ul li {
+  margin: 0 .5em 0 2em; }
+
+aside {
+  font-size: 90%; }
+  aside.contents h4 {
+    font-size: .9em;
+    color: #252524;
+    border-bottom: none;
+    font-family: Helvetica, Arial, sans-serif; }
+  aside.contents ul {
+    font-size: .8em;
+    padding: 0;
+    border-bottom: none; }
+  aside.contents ul li {
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.8em;
+    border-bottom: 1px dotted #ababab; }
+  aside.contents ul li a {
+    width: 100%;
+    display: block; }
+  aside.contents ul li:hover {
+    background-color: white; }
+
+div.note p {
+  font-size: .9em;
+  padding: .6em 1.5em .6em 1.2em; }
+
+.noteworthy {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #ababab;
+  background: url("../images/search.png") no-repeat 0px 2px;
+  margin-left: -20px;
+  padding-left: 20px; }
+
+.align-left {
+  float: left; }
+
+.align-right {
+  float: right; }
+
+.align-center {
+  display: block;
+  margin: 0 auto; }
+
+.caption {
+  border: 1px solid #666;
+  text-align: center;
+  background: #ccc;
+  padding: 10px;
+  margin: 10px; }
+
+.clearfix {
+  clear: both;
+  float: none;
+  width: 100%; }
+
+.quarter {
+  width: 25%; }
+
+.third {
+  width: 33.3%; }
+
+.two-thirds {
+  width: 66.7%; }
+
+.half {
+  width: 50%; }
+
+.three-quarters {
+  width: 75%; }
+
+.full {
+  width: 100%; }
