@@ -8,16 +8,14 @@ class Lots_model extends CI_Model{
 	function closest_lots($lot_lat, $lot_long, $max_lots)
 	{
 		$R = 6371; //km
-		$this->db->select('latitude, longitude, name');
-		$this->db->from('parkinglots');
-		$result = $this->db->get();
 		$distances = array();
 		$all_lots = array();
 		$top_lots = array();
-		/**$max_lots = $ret_lots;
-		if(!isset($max_lots)){
-			$max_lots = 5;
-		}**/
+		
+		$this->db->select('id, latitude, longitude, name');
+		$this->db->from('parkinglots');
+		$result = $this->db->get();
+		
 		if($result -> num_rows() > 0){
 		
 			foreach ($result->result_array() as $row)
@@ -43,23 +41,85 @@ class Lots_model extends CI_Model{
 		
 			array_multisort($distances,SORT_STRING,$all_lots);
 		
-			//error_log(print_r($all_lots,1));
 			$count = 0;
 			while($count < $max_lots):
-				//error_log('Lot '.$count.': '.$all_lots[$count]['name']. ' ' .$all_lots[$count]['distance']);
 				array_push($top_lots, $all_lots[$count]);
 				$count = $count + 1;
 			endwhile;
 		}
-		error_log(print_r($top_lots,1));
+		$lot_vals = array();
+		foreach($top_lots as $data)
+		{
+			$ret = $this->occupancy($data['id']);
+			$data['status'] = $ret;
+			array_push($lot_vals, $data);
+			
+		}
+		error_log(print_r($lot_vals,1));
 		$result->free_result();
-		return $top_lots;
+		return $lot_vals;
 	}
 	
-	function lot_update($lot_name,$percent)
+	function occupancy($lot_id)
 	{
-	$this->db->query("INSERT INTO enteries (fill) VALUES('$percent')");
+		$this->db->select('fill, check_in_time');
+		$result = $this->db->get_where('entries', array('lot_id' => $lot_id));
+		$past_val = array();
+		$occ = array();
+		$sum = 0;
+		$posts = 0;
+		foreach( $result->result_array() as $row){
+			$status = array();
+			$sum += $row['fill'];			
+			$status['occupancy'] = $row['fill'];
+			$status['time'] = $row['check_in_time'];
+			array_push($past_val, $status);
+			$posts++;
+		}
+		if($posts == 0){
+			$avg_occ = 0;
+		}else{
+			$avg_occ = $sum/$posts;
+		}
+		
+		//array_push($occ,$past_val);
+		$occ['avg_occ'] = $avg_occ;
+		$occ['past'] = $past_val;
+		
+			
+		$result->free_result();
+		return $occ;
+	}
 	
+	function lot_update($lot_id,$percent)
+	{		
+		$timestamp = date("Y-m-d H:i:s");
+		error_log('Time: '.$timestamp);
+		$lot_data = array(
+		'lot_id' 		=> 	$lot_id,
+		'fill'	 		=>	$percent,
+		'check_in_time'	=>	$timestamp
+		);
+		error_log('Array: '. print_r($lot_data,1));
+		$this->db->insert('entries', $lot_data);
+		/**
+		$this->db->select('lot_id');
+		$result = $this->db->get_where('entries', array('lot_id' => $lot_id));
+		if($result->num_rows() == 0)
+		{
+			
+		}
+		else
+		{
+			$update_data = array(
+			'fill' => $percent,
+			'check_in_time' => $timestamp
+			);
+			$row = $result->row_array();
+			$this->db->where('lot_id', $row['lot_id']);
+			$this->db->update('entries',$update_data);
+		}
+		**/
 	}
 }
 ?>

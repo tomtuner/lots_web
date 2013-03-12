@@ -19,13 +19,6 @@ class Lots extends REST_Controller {
 		if($ret_lots == ""){
 			$ret_lots =5;
 		}
-		/**
-		error_log('ret_lots val: '.$ret_lots);
-		if(!isset($ret_lots) || is_null($ret_lots)){
-			error_log('Made it to IF: '.$ret_lots);
-			$ret_lots = 5;
-		}
-		**/
 		$this->response($this->Lots_model->closest_lots($this->get('latitude'),$this->get('longitude'), $ret_lots));
 		
     }
@@ -34,10 +27,10 @@ class Lots extends REST_Controller {
     {
         // Create a new lot post
         error_log('POST');
-        error_log($this->post('name'));
+        error_log($this->post('lot_id'));
 		error_log($this->post('fill'));
 		
-		$this->Lots_model->lot_update($this->post('name'), $this->post('fill'));
+		$this->Lots_model->lot_update($this->post('lot_id'), $this->post('fill'));
     }
 	
 	
