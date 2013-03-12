@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'parchmeet';
-$db['default']['password'] = 'parchmeet';
-$db['default']['database'] = 'parchmeet';
+$db['default']['username'] = 'lots';
+$db['default']['password'] = 'lots';
+$db['default']['database'] = 'lots';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
