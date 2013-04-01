@@ -9,7 +9,7 @@ class Lots extends REST_Controller {
 	}
 
 
-	public function index_get()
+	function index_get()
     {
         // Display all lots
         error_log('GET');
@@ -23,21 +23,34 @@ class Lots extends REST_Controller {
 		
     }
 
-    public function index_post()
+    function index_post()
     {
-        // Create a new lot post
+        // Create a new lot post (check-in)
         error_log('POST');
         error_log($this->post('lot_id'));
 		error_log($this->post('fill'));
-		$sender = $this->post('name');
-		if($sender == ""){
-			$sender ="anonymous";
-		}
+		if ($this->post('lot_id') && $this->post('fill') && $this->post('name'))
+		{
+			$sender = $this->post('name');
+			if($sender == ""){
+				$sender ="anonymous";
+			}
 		
-		$this->Lots_model->lot_update($this->post('lot_id'), $this->post('fill'), $sender);
+			if ($this->Lots_model->lot_update($this->post('lot_id'), $this->post('fill'), $sender))
+			{
+				$this->response(201);
+			}
+		}
     }
 	
-	
-
+	function create_post()
+	{
+		error_log('CREATE POST');
+		if ($this->post('latitude') && $this->post('longitude') && $this->post('name'))
+		{
+			error_log('Valid Parameters');
+			$this->Lots_model->create_lot($this->post('latitude'), $this->post('longitude'), $this->post('name'));
+		}
+	}
 }
 ?>

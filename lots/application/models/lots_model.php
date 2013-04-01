@@ -5,9 +5,63 @@ class Lots_model extends CI_Model{
 		parent::__construct();
 	}
 	
+	function create_lot($latitude, $longitude, $name)
+	{
+		$new_lot_data = array(
+		'latitude'	=> $latitude,
+		'longitude'	=> $longitude,
+		'name'		=> $name
+		);
+		
+		// Add check for existing lots here
+		
+		$this->db->insert('parkinglots', $new_lot_data);
+	}
+	
+	/** 
+		This function is meant to see if there are any existing lots
+		already created wihtin .3miles (0.482803km) the provided lat
+		and long.
+	**/
+	
+	function existing_lots($latitude, $longitude)
+	{
+		$MAX_DIST = .482803;
+		$distances = array();
+		$all_lots = array();
+		$close_lots = array();
+		
+		$this->db->select('id, latitude, longitude, name');
+		$this->db->from('parkinglots');
+		$result = $this->db->get();
+		
+		if($result -> num_rows() > 0){
+		
+			foreach ($result->result_array() as $row)
+			{
+				$row['distance'] = $this->distance($latitude, $longitude, $row['latitude'], $row['longitude']);
+				array_push($all_lots,$row);
+				array_push($distances,$d);
+			}
+		
+			array_multisort($distances,SORT_STRING,$all_lots);
+			
+			foreach($all_lots->result_array() as $row)
+			{
+				if($row['distance'] <= $MAX_DIST){
+					array_push($close_lots, $row);
+				}
+			}
+		}
+		$result->free_result();		
+		return $close_lots;
+	}
+	
+	
 	function closest_lots($lot_lat, $lot_long, $max_lots)
 	{
 		$R = 6371; //km
+		$KMPERMILE = 1.60934; //km per mile
 		$distances = array();
 		$all_lots = array();
 		$top_lots = array();
@@ -25,7 +79,7 @@ class Lots_model extends CI_Model{
 				a = sin²(Δφ/2) + cos(φ1).cos(φ2).sin²(Δλ/2)
 				c = 2.atan2(√a, √(1−a))
 				d = R.c
-			**/		
+				
 				$rad_lat = deg2rad($lot_lat - $row['latitude']);
 				$rad_long = deg2rad($lot_long - $row['longitude']);
 				$lat1 = deg2rad($lot_lat);
@@ -35,14 +89,21 @@ class Lots_model extends CI_Model{
 				$c = 2 * atan2(sqrt($a), sqrt(1-$a));
 				$d = $R * $c;
 				$row['distance'] = $d;
-				array_push($all_lots,$row);
-				array_push($distances,$d);
+				error_log($d);
+				**/
+				$row['distance'] = $this->distance($lot_lat, $lot_long, $row['latitude'], $row['longitude']);
+
+				// If lot is further than 10 miles away don't return it
+				if ($row['distance'] <= ($KMPERMILE * 10.0)) {
+					array_push($all_lots,$row);
+					array_push($distances,$row['distance']);
+				}
 			}
 		
 			array_multisort($distances,SORT_STRING,$all_lots);
 		
 			$count = 0;
-			while($count < $max_lots):
+			while($count < count($all_lots)):
 				array_push($top_lots, $all_lots[$count]);
 				$count = $count + 1;
 			endwhile;
@@ -60,10 +121,34 @@ class Lots_model extends CI_Model{
 		return $lot_vals;
 	}
 	
+	function distance($lat_1, $long_1, $lat_2, $long_2)
+	{
+		$R = 6371; //km
+		/**
+			Haversine formula:
+			a = sin²(Δφ/2) + cos(φ1).cos(φ2).sin²(Δλ/2)
+			c = 2.atan2(√a, √(1−a))
+			d = R.c
+		**/		
+		$rad_lat = deg2rad($lat_1 - $lat_2);
+		$rad_long = deg2rad($long_1 - $long_2);
+		$lat1 = deg2rad($lat_1);
+		$lat2 = deg2rad($lat_2);
+		
+		$a = (sin($rad_lat/2) * sin($rad_lat/2)) + ((sin($rad_long/2) * sin($rad_long/2)) * cos($lat1) * cos($lat2));
+		$c = 2 * atan2(sqrt($a), sqrt(1-$a));
+		$d = $R * $c;
+	
+		return $d;
+	}
+	
 	function occupancy($lot_id)
 	{
 		$this->db->select('fill, check_in_time');
-		$result = $this->db->get_where('entries', array('lot_id' => $lot_id));
+		$where = "";
+		$where .= "(lot_id = '$lot_id' AND check_in_time >= DATE_ADD(NOW(), INTERVAL -  12 HOUR))";
+		$this->db->where($where);
+		$result = $this->db->get('entries');
 		$past_val = array();
 		$occ = array();
 		$sum = 0;
