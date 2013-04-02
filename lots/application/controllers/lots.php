@@ -37,7 +37,8 @@ class Lots extends REST_Controller {
 		{
 			if ($this->Lots_model->lot_update($this->post('lot_id'), $this->post('fill'), $sender))
 			{
-				$this->response(201);
+				// Success!
+				//$this->response(200);
 			}
 		}
     }
