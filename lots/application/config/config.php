@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.sisextension.com/lots/';
+$config['base_url']	= 'http://www.occupylots.com/lots/';
 
 /*
 |--------------------------------------------------------------------------

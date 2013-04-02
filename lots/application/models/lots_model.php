@@ -85,7 +85,7 @@ class Lots_model extends CI_Model{
 			array_multisort($distances,SORT_STRING,$all_lots);
 		
 			$count = 0;
-			while($count < count($all_lots)):
+			while($count < min(count($all_lots), $max_lots)):
 				array_push($top_lots, $all_lots[$count]);
 				$count = $count + 1;
 			endwhile;
