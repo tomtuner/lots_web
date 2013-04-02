@@ -29,13 +29,12 @@ class Lots extends REST_Controller {
         error_log('POST');
         error_log($this->post('lot_id'));
 		error_log($this->post('fill'));
-		if ($this->post('lot_id') && $this->post('fill') && $this->post('name'))
+		$sender = $this->post('name');
+		if($sender == ""){
+			$sender ="anonymous";
+		}
+		if ($this->post('lot_id') && $this->post('fill'))
 		{
-			$sender = $this->post('name');
-			if($sender == ""){
-				$sender ="anonymous";
-			}
-		
 			if ($this->Lots_model->lot_update($this->post('lot_id'), $this->post('fill'), $sender))
 			{
 				$this->response(201);

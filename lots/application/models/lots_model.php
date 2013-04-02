@@ -60,7 +60,6 @@ class Lots_model extends CI_Model{
 	
 	function closest_lots($lot_lat, $lot_long, $max_lots)
 	{
-		$R = 6371; //km
 		$KMPERMILE = 1.60934; //km per mile
 		$distances = array();
 		$all_lots = array();
@@ -74,23 +73,6 @@ class Lots_model extends CI_Model{
 		
 			foreach ($result->result_array() as $row)
 			{
-			/**
-				Haversine formula:
-				a = sin²(Δφ/2) + cos(φ1).cos(φ2).sin²(Δλ/2)
-				c = 2.atan2(√a, √(1−a))
-				d = R.c
-				
-				$rad_lat = deg2rad($lot_lat - $row['latitude']);
-				$rad_long = deg2rad($lot_long - $row['longitude']);
-				$lat1 = deg2rad($lot_lat);
-				$lat2 = deg2rad($row['latitude']);
-				
-				$a = (sin($rad_lat/2) * sin($rad_lat/2)) + ((sin($rad_long/2) * sin($rad_long/2)) * cos($lat1) * cos($lat2));
-				$c = 2 * atan2(sqrt($a), sqrt(1-$a));
-				$d = $R * $c;
-				$row['distance'] = $d;
-				error_log($d);
-				**/
 				$row['distance'] = $this->distance($lot_lat, $lot_long, $row['latitude'], $row['longitude']);
 
 				// If lot is further than 10 miles away don't return it
@@ -166,7 +148,7 @@ class Lots_model extends CI_Model{
 		}else{
 			$avg_occ = ceil($sum/$posts);
 		}
-		$ret = $this->predicted($lot_id);
+		$ret = $this->predicted($result);
 		//error_log('avg occ: '.$avg_occ);
 		//error_log('ret val: '.$ret);
 		$occ['avg_occ'] = $avg_occ;
@@ -180,21 +162,15 @@ class Lots_model extends CI_Model{
 	
 	function predicted($ref)
 	{
-		/**$this->db->select('fill');
-		$this->db->from('entries');
-		$this->db->where('id', $ref);
-		//$this->db->where('check_in_time >=', 'DATE_ADD(NOW(), INTERVAL -  96 HOUR)');
-		$result = $this->db->get();
-		**/
+	/**
 		$where = "";
-		$where .= "(lot_id = '$ref' AND check_in_time >= DATE_ADD(NOW(), INTERVAL -  24 HOUR))";
+		$where .= "(lot_id = '$ref' AND check_in_time >= DATE_ADD(NOW(), INTERVAL -  12 HOUR))";
 		$this->db->select('fill');
 		//$this->db->where('id', $ref);
 		$this->db->where($where);
 		$result = $this->db->get('entries');
 		//error_log(print_r($this->db->last_query(), 1));
-		//$result = $this->db->get_where('entries', array('lot_id' => $ref));
-		
+		**/
 		$posts = 0;
 		$sum = 0;
 		$trend = 0;
@@ -202,7 +178,7 @@ class Lots_model extends CI_Model{
 		$avg_occ = 0;
 		//error_log('Array Printout:');
 		//error_log($result->num_rows());
-		foreach( $result->result_array() as $row){
+		foreach( $ref->result_array() as $row){
 			$sum += $row['fill'];
 			//error_log('fill: '.$row['fill']);
 			if($row['fill'] > $temp)
@@ -253,7 +229,11 @@ class Lots_model extends CI_Model{
 		'name'			=> 	$sender
 		);
 		error_log('Array: '. print_r($lot_data,1));
-		$this->db->insert('entries', $lot_data);
+		if($this->db->insert('entries', $lot_data)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 ?>
